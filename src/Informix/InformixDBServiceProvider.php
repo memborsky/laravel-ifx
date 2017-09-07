@@ -9,6 +9,7 @@
 namespace Poyii\Informix;
 
 use Illuminate\Support\ServiceProvider;
+
 /**
  * Class InformixDBServiceProvider.
  */
@@ -20,11 +21,9 @@ class InformixDBServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes(
-            [
-                __DIR__.'/../../config/informix.php' => config_path('informix.php'),
-            ]
-        );
+        $this->publishes([
+                __DIR__ . '/../config/informix.php' => config_path('informix.php'),
+            ], 'informix');
     }
 
     /**
@@ -35,7 +34,6 @@ class InformixDBServiceProvider extends ServiceProvider
     public function register()
     {
         if (file_exists(config_path('informix.php'))) {
-
             $this->mergeConfigFrom(config_path('informix.php'), 'database.connections');
 
             $config = $this->app['config']->get('informix', []);
